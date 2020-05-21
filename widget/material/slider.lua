@@ -8,7 +8,6 @@ local dpi = require('beautiful').xresources.apply_dpi
 local wibox = require('wibox')
 local gears = require('gears')
 local beautiful = require('beautiful')
-local mat_colors = require('theme.mat-colors')
 -- Local declarations
 
 local mat_slider = {mt = {}}
@@ -93,8 +92,8 @@ local function new(args)
     forced_height = dpi(8),
     bar_shape = gears.shape.rounded_rect,
     bar_height = 0,
-    bar_color = beautiful.primary.hue_500,
-    handle_color = beautiful.primary.hue_300,
+    bar_color = beautiful.panel_bg,
+    handle_color = beautiful.panel_fg,
     handle_shape = gears.shape.circle,
     handle_border_color = '#00000012',
     handle_border_width = dpi(3),

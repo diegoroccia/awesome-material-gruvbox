@@ -1,12 +1,13 @@
 local awful = require('awful')
 local gears = require('gears')
 local icons = require('theme.icons')
+--local lain  = require("lain")
 
 local tags = {
   {
     icon = icons.chrome,
     type = 'chrome',
-    defaultApp = 'google-chrome-beta',
+    defaultApp = 'firefox',
     screen = 1
   },
   {
@@ -35,8 +36,8 @@ local tags = {
   },
   {
     icon = icons.game,
-    type = 'game',
-    defaultApp = '',
+    type = '',
+    defaultApp = 'steam',
     screen = 1
   },
   {
@@ -48,8 +49,29 @@ local tags = {
 }
 
 awful.layout.layouts = {
-  awful.layout.suit.tile,
-  awful.layout.suit.max
+    --awful.layout.suit.floating,
+    awful.layout.suit.tile.right,
+    --awful.layout.suit.tile,
+    --awful.layout.suit.tile.left,
+    --awful.layout.suit.tile.bottom,
+    --awful.layout.suit.tile.top,
+    --awful.layout.suit.fair,
+    --awful.layout.suit.fair.horizontal,
+    --awful.layout.suit.spiral,
+    --awful.layout.suit.spiral.dwindle,
+    awful.layout.suit.max,
+    --awful.layout.suit.max.fullscreen,
+    awful.layout.suit.magnifier,
+    --awful.layout.suit.corner.nw,
+    --awful.layout.suit.corner.ne,
+    --awful.layout.suit.corner.sw,
+    --awful.layout.suit.corner.se,
+    --lain.layout.cascade,
+    --lain.layout.cascade.tile,
+    --lain.layout.centerwork,
+    --lain.layout.centerwork.horizontal,
+    --lain.layout.termfair,
+    --lain.layout.termfair.center,
 }
 
 awful.screen.connect_for_each_screen(

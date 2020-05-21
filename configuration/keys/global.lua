@@ -7,70 +7,142 @@ local modkey = require('configuration.keys.mod').modKey
 local altkey = require('configuration.keys.mod').altKey
 local apps = require('configuration.apps')
 -- Key bindings
-local globalKeys =
-  awful.util.table.join(
+local globalKeys = awful.util.table.join(
   -- Hotkeys
-  awful.key({modkey}, 'F1', hotkeys_popup.show_help, {description = 'show help', group = 'awesome'}),
+    awful.key({modkey}, 'F1', hotkeys_popup.show_help, {description = 'show help', group = 'awesome'}),
+    awful.key({ modkey }, "x", 
+        function ()
+            os.execute("rofi -show ")
+        end,
+        {description = "show rofi", group = "launcher"}),
   -- Tag browsing
-  awful.key({modkey}, 'w', awful.tag.viewprev, {description = 'view previous', group = 'tag'}),
-  awful.key({modkey}, 's', awful.tag.viewnext, {description = 'view next', group = 'tag'}),
-  awful.key({modkey}, 'Escape', awful.tag.history.restore, {description = 'go back', group = 'tag'}),
+    awful.key({modkey}, 'w', awful.tag.viewprev, {description = 'view previous', group = 'tag'}),
+    awful.key({modkey}, 's', awful.tag.viewnext, {description = 'view next', group = 'tag'}),
+    awful.key({modkey}, 'Escape', awful.tag.history.restore, {description = 'go back', group = 'tag'}),
+
   -- Default client focus
-  awful.key(
-    {modkey},
-    'd',
-    function()
-      awful.client.focus.byidx(1)
-    end,
-    {description = 'focus next by index', group = 'client'}
-  ),
-  awful.key(
-    {modkey},
-    'a',
-    function()
-      awful.client.focus.byidx(-1)
-    end,
-    {description = 'focus previous by index', group = 'client'}
-  ),
-  awful.key(
-    {modkey},
-    'e',
-    function()
-      _G.screen.primary.left_panel:toggle(true)
-    end,
-    {description = 'show main menu', group = 'awesome'}
-  ),
-  awful.key({modkey}, 'u', awful.client.urgent.jumpto, {description = 'jump to urgent client', group = 'client'}),
-  awful.key(
-    {modkey},
-    'Tab',
-    function()
-      awful.client.focus.history.previous()
-      if _G.client.focus then
-        _G.client.focus:raise()
-      end
-    end,
-    {description = 'go back', group = 'client'}
-  ),
+    awful.key({modkey}, 'e',
+      function()
+        _G.screen.primary.left_panel:toggle(true)
+      end,
+      {description = 'show main menu', group = 'awesome'}
+    ),
+    awful.key({modkey}, 'u', 
+        awful.client.urgent.jumpto, 
+        {description = 'jump to urgent client', group = 'client'}
+    ),
+    awful.key({modkey}, 'Tab',
+      function()
+        awful.client.focus.history.previous()
+        if _G.client.focus then
+          _G.client.focus:raise()
+        end
+      end,
+      {description = 'go back', group = 'client'}
+    ),
+
+
+ -- By direction client focus
+     awful.key({ modkey }, "j",
+         function()
+             awful.client.focus.global_bydirection("down")
+             if client.focus then client.focus:raise() end
+         end,
+         {description = "focus down", group = "client"}),
+     awful.key({ modkey }, "k",
+         function()
+             awful.client.focus.global_bydirection("up")
+             if client.focus then client.focus:raise() end
+         end,
+         {description = "focus up", group = "client"}),
+     awful.key({ modkey }, "h",
+         function()
+             awful.client.focus.global_bydirection("left")
+             if client.focus then client.focus:raise() end
+         end,
+         {description = "focus left", group = "client"}),
+     awful.key({ modkey }, "l",
+         function()
+             awful.client.focus.global_bydirection("right")
+             if client.focus then client.focus:raise() end
+         end,
+         {description = "focus right", group = "client"}),
+
+
+  -- Layout manipulation
+  awful.key({ modkey, "Shift"   }, "j", 
+      function () 
+          awful.client.swap.byidx(  1)
+      end,
+      {description = "swap with next client by index", group = "client"}),
+  awful.key({ modkey, "Shift"   }, "k", 
+      function () 
+          awful.client.swap.byidx( -1)
+      end,
+      {description = "swap with previous client by index", group = "client"}),
+  awful.key({ modkey, "Control" }, "j", 
+      function () 
+          awful.screen.focus_relative( 1) 
+      end,
+      {description = "focus the next screen", group = "screen"}),
+  awful.key({ modkey, "Control" }, "k", 
+      function () 
+          awful.screen.focus_relative(-1) 
+      end,
+      {description = "focus the previous screen", group = "screen"}),
+  awful.key({ modkey,           }, "n",
+      function ()
+          -- The client currently has the input focus, so it cannot be
+          -- minimized, since minimized clients can't have the focus.
+          c.minimized = true
+      end ,
+      {description = "minimize", group = "client"}),
+  awful.key({ modkey,           }, "m",
+      function ()
+          c = _G.client.focus
+          c.maximized = not c.maximized
+          c:raise()
+      end ,
+      {description = "maximize", group = "client"}),
+
   -- Programms
   awful.key(
-    {modkey},
+    {modkey, 'Control'},
     'l',
     function()
       awful.spawn(apps.default.lock)
     end
   ),
+  
+  --Screenshot
   awful.key(
-    {},
+    {"Shift"},
     'Print',
     function()
       awful.util.spawn_with_shell('maim -s | xclip -selection clipboard -t image/png')
     end
   ),
+
+  awful.key(
+    {},
+    'Print',
+    function()
+      awful.util.spawn_with_shell('maim | xclip -selection clipboard -t image/png')
+    end
+  ),
+
+  awful.key(
+    {'Control'},
+    'Print',
+    function()
+      awful.util.spawn_with_shell('maim -B -i $(xdotool getactivewindow) | xclip -selection clipboard -t image/png')
+    end
+  ),
+
   -- Standard program
   awful.key(
     {modkey},
-    'x',
+    'Return',
     function()
       awful.spawn(apps.default.terminal)
     end,
@@ -111,16 +183,16 @@ local globalKeys =
     {description = 'decrease the number of master clients', group = 'layout'}
   ),
   awful.key(
-    {modkey, 'Control'},
-    'h',
+    {altkey, 'Shift'},
+    'k',
     function()
       awful.tag.incncol(1, nil, true)
     end,
     {description = 'increase the number of columns', group = 'layout'}
   ),
   awful.key(
-    {modkey, 'Control'},
-    'l',
+    {altkey, 'Shift'},
+    'j',
     function()
       awful.tag.incncol(-1, nil, true)
     end,
@@ -251,6 +323,7 @@ local globalKeys =
     end,
     {description = 'toggle mute', group = 'hotkeys'}
   )
+
 )
 
 -- Bind all key numbers to tags.

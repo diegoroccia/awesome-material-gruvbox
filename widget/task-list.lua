@@ -84,7 +84,7 @@ local function list_update(w, buttons, label, data, objects)
       ll = wibox.layout.fixed.horizontal()
 
       -- All of this is added in a fixed widget
-      l:fill_space(true)
+      l:fill_space(false)
       l:add(ibm)
       l:add(tbm)
       ll:add(l)
@@ -205,7 +205,7 @@ local TaskList = function(s)
     tasklist_buttons,
     {},
     list_update,
-    wibox.layout.fixed.horizontal()
+    wibox.layout.flex.horizontal()
   )
 end
 

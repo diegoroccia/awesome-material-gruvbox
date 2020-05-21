@@ -5,7 +5,7 @@ local gears = require('gears')
 local dpi = require('beautiful').xresources.apply_dpi
 local theme = {}
 theme.icons = theme_dir .. '/icons/'
-theme.font = 'Roboto medium 10'
+theme.font = 'Fantasque Sans Mono 14'
 
 -- Colors Pallets
 
@@ -24,10 +24,10 @@ local awesome_overrides =
   --theme.dir             = os.getenv("HOME") .. "/code/awesome-pro/themes/pro-dark"
 
   theme.icons = theme.dir .. '/icons/'
-  --theme.wallpaper = theme.dir .. '/wallpapers/pro-dark-shadow.png'
-  theme.wallpaper = '#e0e0e0'
-  theme.font = 'Roboto medium 10'
-  theme.title_font = 'Roboto medium 14'
+  theme.wallpaper = theme.dir .. '/wallpaper.png'
+  --theme.wallpaper = '#e0e0e0'
+  theme.font = 'Fantasque Sans Mono 12'
+  theme.title_font = 'Fantasque Sans Mono 16'
 
   theme.fg_normal = '#ffffffde'
 
@@ -84,7 +84,7 @@ local awesome_overrides =
 
   -- Tasklist
 
-  theme.tasklist_font = 'Roboto medium 11'
+  theme.tasklist_font = 'Fantasque Sans Mono 14'
   theme.tasklist_bg_normal = theme.background.hue_800
   theme.tasklist_bg_focus =
     'linear:0,0:0,' ..

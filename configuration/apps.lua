@@ -5,17 +5,20 @@ local get_dpi = require('beautiful').xresources.get_dpi
 return {
   -- List of apps to start by default on some actions
   default = {
-    terminal = 'alacritty',
+    terminal = 'urxvtc',
     editor = 'code',
     rofi = 'rofi -dpi ' .. get_dpi() .. ' -width ' .. with_dpi(400) .. ' -show drun -theme ' .. filesystem.get_configuration_dir() .. '/configuration/rofi.rasi',
-    lock = 'i3lock-fancy-rapid 5 3 -k --timecolor=ffffffff --datecolor=ffffffff',
-    quake = 'alacritty --title QuakeTerminal'
+    lock = 'screenlock'
   },
   -- List of apps to start once on start-up
   run_on_start_up = {
-    'compton --config ' .. filesystem.get_configuration_dir() .. '/configuration/compton.conf',
-    'blueberry-tray', -- Bluetooth tray icon
-    'xfce4-power-manager', -- Power manager
-    '/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 & eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg)' -- credential manager
+    --'picom --config ' .. filesystem.get_configuration_dir() .. '/configuration/compton.conf',
+    "urxvtd",
+    "unclutter -root",
+    "/usr/local/bin/picom --shadow-exclude '!focused' ", 
+    "/usr/bin/xsettingsd", 
+    "/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1", 
+    "xautolock -time 5 -locker screenlock",
+    --"/usr/bin/conky"
   }
 }
