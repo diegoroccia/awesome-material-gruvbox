@@ -21,13 +21,13 @@ local awesome_overrides = function(theme)
 
   theme.bg_normal = gruvbox.dark0
   theme.fg_normal = gruvbox.light0
-  theme.accent_color = gruvbox.bright_red
+  theme.accent_color = gruvbox.bright_green
 
   theme.border_focus = gruvbox.neutral_yellow
 
   theme.panel_bg = theme.bg_normal
   theme.panel_fg = theme.fg_normal
-  theme.panel_bg_selected = gruvbox.dark3
+  theme.panel_bg_selected = gruvbox.dark2
 
   theme.taglist_bg_empty = theme.panel_bg
   theme.taglist_bg_occupied = gruvbox.dark1
@@ -36,15 +36,15 @@ local awesome_overrides = function(theme)
     'linear:0,0:' ..  dpi(48) ..
       ',0:0,' .. theme.accent_color .. 
       ':0.08,' .. theme.accent_color .. 
-      ':0.08,' .. theme.panel_bg
+      ':0.08,' .. theme.panel_bg_selected
 
   theme.tasklist_bg_normal = theme.bg_normal
 
   theme.tasklist_bg_focus =
     'linear:0,0:0,' ..
     dpi(48) ..
-      ':0,' .. theme.panel_bg ..
-      ':0.92,' .. theme.panel_bg ..
+      ':0,' .. theme.panel_bg_selected ..
+      ':0.92,' .. theme.panel_bg_selected ..
       ':0.92,' .. theme.accent_color
      
       
