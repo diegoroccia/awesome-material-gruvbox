@@ -85,6 +85,21 @@ local globalKeys = awful.util.table.join(
           awful.screen.focus_relative( 1) 
       end,
       {description = "focus the next screen", group = "screen"}),
+
+  awful.key({ modkey, "Control" }, "Return", 
+      function () 
+          c = _G.client.focus
+          c:swap(awful.client.getmaster())
+      end,
+			{description = "move to master", group = "client"}),
+
+   awful.key({ modkey,           }, "o",
+       function () 
+           c = _G.client.focus
+           c:move_to_screen()
+       end,
+       {description = "move to screen", group = "client"}),
+ 
   awful.key({ modkey, "Control" }, "k", 
       function () 
           awful.screen.focus_relative(-1) 
@@ -97,6 +112,7 @@ local globalKeys = awful.util.table.join(
           c.minimized = true
       end ,
       {description = "minimize", group = "client"}),
+
   awful.key({ modkey,           }, "m",
       function ()
           c = _G.client.focus
