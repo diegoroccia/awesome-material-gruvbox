@@ -44,5 +44,12 @@ awful.rules.rules = {
       end,
       skip_decoration = true
     }
-  }
+  },
+
+  {
+    rule_any = { name = {'urxvt'} },
+    properties = {
+      size_hints_honor = false
+    }
+  },
 }
